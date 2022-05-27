@@ -1,9 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
-
-
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 
-mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+require('dotenv').config()
+
+// process.env.MAPBOX
+
+mapboxgl.accessToken = process.env.MAPBOX_PUB_KEY;
+
 
 export default function App() {
 
@@ -13,11 +16,12 @@ export default function App() {
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9);
 
+
   useEffect(() => {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v11',
+      style: `mapbox://styles/canarchy-dev{MAPBOX_STYLE}`,
       center: [lng, lat],
       zoom: zoom
     });
